@@ -1,5 +1,9 @@
 @extends('layouts.master')
 @section('content')
+    <?php
+    use Illuminate\Support\Facades\DB;
+    ?>
+
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -10,27 +14,33 @@
             height: 30%;
             border-radius: 5px;
         }
+
         th,
         td.cell {
             width: 100px !important;
             border: 1px solid black;
         }
+
         #customers {
             font-family: Arial, Helvetica, sans-serif;
             border-collapse: collapse;
             width: 100%;
         }
+
         #customers td,
         #customers th {
             border: 1px solid #ddd;
             padding: 8px;
         }
+
         #customers tr:nth-child(even) {
             background-color: #f2f2f2;
         }
+
         #customers tr:hover {
             background-color: #ddd;
         }
+
         #customers th {
             padding-top: 12px;
             padding-bottom: 12px;
@@ -38,16 +48,18 @@
             background-color: #04AA6D;
             color: white;
         }
-        #hel{
-            margin-left:20%;
+
+        #hel {
+            margin-left: 20%;
         }
-        
+
         @media only screen and (max-width: 900px) {
-     #hel {
-     margin-left:0%;
-  }
-}
+            #hel {
+                margin-left: 0%;
+            }
+        }
     </style>
+
     <body>
         <div id="hel">
             <h2>Assign Syllabus</h2>
@@ -57,8 +69,23 @@
                     @method('post')
                     <div class="md-3">
                         <label for="student">Student:</label>
+
+
+                        <?php
+                        
+                        $studentcurrentstudent = DB::table('students')
+                            ->where('students.id', '=', session('student_id'))
+                            ->first();
+                        
+                        ?>
                         <select id="student" name="student" class="form-control" required>
+                            <?php if(!empty($studentcurrentstudent)){ ?>
+                            <option value={{ $studentcurrentstudent->id }} selected>{{ $studentcurrentstudent->name }}
+                            </option>
+                            <?php }else{ ?>
                             <option value="" selected disabled>Select Student</option>
+
+                            <?php } ?>
                             @foreach ($student as $stud)
                                 <option value={{ $stud->id }}> {{ $stud->name }}</option>
                             @endforeach
@@ -67,8 +94,6 @@
                     <div id="report" style="color:red font-size:18px;"></div>
                     <p></p>
                     <h4>SELECT PARA</h4>
-
-
                     <table id="customers">
                         <thead>
                             <tr>
@@ -380,10 +405,11 @@
 
 
 
-                    
+
 
                     <a href="{{ route('assign.index') }}" class="btn btn-danger">Reset</a>
                     <button class="btn btn-primary" type="submit">submit</button>
                 </form>
+
                 </html>
             @endsection

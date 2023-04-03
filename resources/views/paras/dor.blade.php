@@ -84,9 +84,9 @@
                                 <thead>
                                     <tr style="background-color:rgba(51, 51, 51, 0.583); ">
                                         <th class="cell">Total</th>
-                                        <th class="cell">Exam1</th>
-                                        <th class="cell">Exam2</th>
                                         <th class="cell">Exam3</th>
+                                        <th class="cell">Exam2</th>
+                                        <th class="cell">Exam1</th>
                                         <th class="cell">Revision</th>
                                         <th class="cell">OldExam</th>
                                         <th class="cell">Day</th>
@@ -126,21 +126,23 @@
                                              
                                              ?>
                                             <tr >
-                                                <td>{{ $array[$i]['total']}}</td>
-                                            <td>{{ $array[$i]['exam_1']}}
-                                           
-                                            <br>
-                                                {{ $array[$i]['exam_1a']}}
-                                            </td>
+                                                <td>
+                                                    {{ $array[$i]['exam_3']}}
+                                                     <br>
+                                                         {{ $array[$i]['exam_3a']}}
+                                                </td>
                                             <td>
                                                 {{ $array[$i]['exam_2']}}
                                                  <br>
                                                      {{ $array[$i]['exam_2a']}}
                                             </td>
-                                            <td>
-                                                {{ $array[$i]['exam_3']}}
-                                                 <br>
-                                                     {{ $array[$i]['exam_3a']}}
+                                           
+
+                                            <td>{{ $array[$i]['total']}}</td>
+                                            <td>{{ $array[$i]['exam_1']}}
+                                           
+                                            <br>
+                                                {{ $array[$i]['exam_1a']}}
                                             </td>
                                             <td>{{ $array[$i]['revision'] }}</td>
                                             <td></td><td>{{ $date = date('l', strtotime($value['date'])) }}</td>

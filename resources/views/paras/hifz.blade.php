@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <form action="{{ route('checkhifz') }}" method="GET">
+                <form action="{{ route('hifz_update') }}" method="GET">
                     @csrf
                     <label>Month</label>
                     <select id="month" name="month_id">
@@ -145,9 +145,9 @@
                                             <tr id="first">
                                                 <th class="cell"> n_exam</th>
                                                 <th class="cell"> Total</th>
-                                                <th class="cell"> Exam1</th>
-                                                <th class="cell"> Exam2</th>
                                                 <th class="cell"> Exam3</th>
+                                                <th class="cell"> Exam2</th>
+                                                <th class="cell"> Exam1</th>
                                                 <th class="cell"> Remark</th>
                                                 <th class="cell"> OldExam</th>
                                                 <th class="cell"> Day</th>
@@ -175,6 +175,104 @@
                                                     <tr>
                                                         <td>{{ $array[$i]['n_exam'] }}</td>
                                                         <td>{{ $array[$i]['total'] }}</td>
+
+
+
+
+                                                        <td>
+                                                            <?php
+                                                            if (explode('-', $array[$i]['exam_3'])[0] == '0') {
+                                                                echo 'تختی-' . explode('-', $array[$i]['exam_3'])[1];
+                                                            } else {
+                                                                if (!empty($array[$i]['exam_3'])) {
+                                                                    $check = DB::table('paras')
+                                                                        ->where('id', explode('-', $array[$i]['exam_3'])[0])
+                                                                        ->select('para_name as para')
+                                                                        ->first();
+                                                                    echo empty($check->para) ?  : $check->para . '-' . explode('-', $array[$i]['exam_3'])[1];
+                                                                }
+                                                            }
+                                                            ?>
+                                                            <br>
+                                                            <?php
+                                                            if (explode('-', $array[$i]['exam_3a'])[0] == '0') {
+                                                                echo 'تختی-' . explode('-', $array[$i]['exam_3a'])[1];
+                                                            } else {
+                                                                if (!empty($array[$i]['exam_3a'])) {
+                                                                    $check = DB::table('paras')
+                                                                        ->where('id', explode('-', $array[$i]['exam_3a'])[0])
+                                                                        ->select('para_name as para')
+                                                                        ->first();
+                                                                    echo empty($check->para) ?  : $check->para . '-' . explode('-', $array[$i]['exam_3a'])[1] . '<br>';
+                                                                }
+                                                            }
+                                                            ?>
+                                                            <div style="color: red">
+                                                                <?php
+                                                                $a = explode('-', $array[$i]['exam3_time']);
+                                                                if (isset($a) && sizeof($a) > 1) {
+                                                                    echo $a[0] . '-' . $a[1] . '<br/>';
+                                                                  
+                                                                }
+                                                                if (isset($a) && sizeof($a) > 2) {
+                                                                    echo $a[0] . '-' . $a[1] . '<br/>';
+                                                                
+                                                                }
+                                                                ?>
+                                                            </div>
+                                                        </td>
+                                                          
+                                                            <td>
+                                                                <?php
+                                                                if (explode('-', $array[$i]['exam_2'])[0] == '0') {
+                                                                    echo 'تختی-' . explode('-', $array[$i]['exam_2'])[1];
+                                                                } else {
+                                                                    if (!empty($array[$i]['exam_2'])) {
+                                                                        $check = DB::table('paras')
+                                                                            ->where('id', explode('-', $array[$i]['exam_2'])[0])
+                                                                            ->select('para_name as para')
+                                                                            ->first();
+                                                                        echo empty($check->para) ?  : $check->para . '-' . explode('-', $array[$i]['exam_2'])[1];
+                                                                    }
+                                                                }
+                                                                ?>
+                                                                <br>
+                                                                <?php
+                                                                if (explode('-', $array[$i]['exam_2a'])[0] == '0') {
+
+                                                                    echo 'تختی-' . explode('-', $array[$i]['exam_2a'])[1];
+
+                                                                }else{
+
+                                                                    if (!empty($array[$i]['exam_2a'])) {
+                                                                        $check = DB::table('paras')
+                                                                            ->where('id', explode('-', $array[$i]['exam_2a'])[0])
+                                                                            ->select('para_name as para')
+                                                                            ->first();
+                                                                        echo empty($check->para) ?  : $check->para . '-' . explode('-', $array[$i]['exam_2a'])[1] . '<br>';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                                <div style="color: red">
+                                                                <?php
+                                                                    $a = explode('-', $array[$i]['exam2_time']);
+                                                                    if (isset($a) && sizeof($a) > 1) {
+                                                                        echo $a[0] . '-' . $a[1] . '<br/>';
+                                                                       
+                                                                    }
+                                                                    if (isset($a) && sizeof($a) > 2) {
+                                                                        echo $a[2] . '<br/>';
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                            </td>
+                                                          
+
+
+
+
+
+
                                                             <td>
                                                                 <?php
                                                                 if (explode('-', $array[$i]['exam_1'])[0] == '0') {
@@ -225,92 +323,6 @@
                                                                     }
                                                                     if (isset($a) && sizeof($a) > 2) {
                                                                         echo $a[2] . '<br/>';
-                                                                    }
-                                                                    ?>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                if (explode('-', $array[$i]['exam_2'])[0] == '0') {
-                                                                    echo 'تختی-' . explode('-', $array[$i]['exam_2'])[1];
-                                                                } else {
-                                                                    if (!empty($array[$i]['exam_2'])) {
-                                                                        $check = DB::table('paras')
-                                                                            ->where('id', explode('-', $array[$i]['exam_2'])[0])
-                                                                            ->select('para_name as para')
-                                                                            ->first();
-                                                                        echo empty($check->para) ?  : $check->para . '-' . explode('-', $array[$i]['exam_2'])[1];
-                                                                    }
-                                                                }
-                                                                ?>
-                                                                <br>
-                                                                <?php
-                                                                if (explode('-', $array[$i]['exam_2a'])[0] == '0') {
-
-                                                                    echo 'تختی-' . explode('-', $array[$i]['exam_2a'])[1];
-
-                                                                }else{
-
-                                                                    if (!empty($array[$i]['exam_2a'])) {
-                                                                        $check = DB::table('paras')
-                                                                            ->where('id', explode('-', $array[$i]['exam_2a'])[0])
-                                                                            ->select('para_name as para')
-                                                                            ->first();
-                                                                        echo empty($check->para) ?  : $check->para . '-' . explode('-', $array[$i]['exam_2a'])[1] . '<br>';
-                                                                    }
-                                                                }
-                                                                ?>
-                                                                <div style="color: red">
-                                                                <?php
-                                                                    $a = explode('-', $array[$i]['exam2_time']);
-                                                                    if (isset($a) && sizeof($a) > 1) {
-                                                                        echo $a[0] . '-' . $a[1] . '<br/>';
-                                                                       
-                                                                    }
-                                                                    if (isset($a) && sizeof($a) > 2) {
-                                                                        echo $a[2] . '<br/>';
-                                                                    }
-                                                                    ?>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <?php
-                                                                if (explode('-', $array[$i]['exam_3'])[0] == '0') {
-                                                                    echo 'تختی-' . explode('-', $array[$i]['exam_3'])[1];
-                                                                } else {
-                                                                    if (!empty($array[$i]['exam_3'])) {
-                                                                        $check = DB::table('paras')
-                                                                            ->where('id', explode('-', $array[$i]['exam_3'])[0])
-                                                                            ->select('para_name as para')
-                                                                            ->first();
-                                                                        echo empty($check->para) ?  : $check->para . '-' . explode('-', $array[$i]['exam_3'])[1];
-                                                                    }
-                                                                }
-                                                                ?>
-                                                                <br>
-                                                                <?php
-                                                                if (explode('-', $array[$i]['exam_3a'])[0] == '0') {
-                                                                    echo 'تختی-' . explode('-', $array[$i]['exam_3a'])[1];
-                                                                } else {
-                                                                    if (!empty($array[$i]['exam_3a'])) {
-                                                                        $check = DB::table('paras')
-                                                                            ->where('id', explode('-', $array[$i]['exam_3a'])[0])
-                                                                            ->select('para_name as para')
-                                                                            ->first();
-                                                                        echo empty($check->para) ?  : $check->para . '-' . explode('-', $array[$i]['exam_3a'])[1] . '<br>';
-                                                                    }
-                                                                }
-                                                                ?>
-                                                                <div style="color: red">
-                                                                    <?php
-                                                                    $a = explode('-', $array[$i]['exam3_time']);
-                                                                    if (isset($a) && sizeof($a) > 1) {
-                                                                        echo $a[0] . '-' . $a[1] . '<br/>';
-                                                                      
-                                                                    }
-                                                                    if (isset($a) && sizeof($a) > 2) {
-                                                                        echo $a[0] . '-' . $a[1] . '<br/>';
-                                                                    
                                                                     }
                                                                     ?>
                                                                 </div>

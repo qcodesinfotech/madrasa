@@ -27,13 +27,13 @@
                     </div>
 
                     <?php
-                    
+
                     $date = date('Y-m-d');
                     $date = strtotime($date);
                     $date = strtotime('-5 day', $date);
                     $date1 = date('Y-m-d', $date);
                     $date = date('Y-m-d');
-                    
+
                     ?>
 
                     <form action="reportit" method="GET">
@@ -84,11 +84,11 @@
                                         @endif
 
                                         <?php
-                                        
+
                                         if (!isset($student)) {
                                             $student = [];
                                         }
-                                        
+
                                         ?>
                                         <footer id="print">
                                             <style>
@@ -109,40 +109,40 @@
                                                         <th class="cell">Exam3</th>
                                                         <th class="cell">Exam2</th>
                                                         <th class="cell">Exam1</th>
+                                                        <th class="cell">coure</th>
+                                                        <th class="cell">students</th>
                                                         <th class="cell">date</th>
-                                                        <th class="cell">course</th>
-                                                        <th class="cell">student</th>
-                                                        <th class="cell">id</th>
+                                                        <th class="cell">SNo</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <?php $i = 1; 
-                                                    
-                                               
-                                                    
+                                                    <?php $i = 1;
+
+
+
                                                     ?>
 
-                                                
+
                                                     @foreach ($student as $item)
                                                         <tr>
 
 
                                                             <th>
                                                                 <?php
-                                                                 
+
 $da = str_replace('/', '-', $item['arabic_date']);
 
 ?>
                                                             <a href="{{ route('onedayreport', $item['teacher_id']."--".$da) }}" class="btn btn-primary">Report </a>
-                                                   
+
                                                         </th>
                                                             <th> <?= $item['exam_1'] . ' ' . $item['exam_1a'] . '<br>' ?></th>
                                                             <th> <?= $item['exam_2'] . ' ' . $item['exam_2a'] . '<br>' ?></th>
                                                             <th> <?= $item['exam_3'] . ' ' . $item['exam_3a'] . '<br>' ?></th>
-                                                            
-                                                            
-                                                            
-                                                            
+
+
+
+
                                                             <th class="cell">{{ $item['course'] }}</th>
                                                             <th class="cell">{{ $item['student_name'] }}</th>
                                                             <th class="cell">{{ $item['arabic_date'] }}</th>
@@ -154,9 +154,9 @@ $da = str_replace('/', '-', $item['arabic_date']);
                                         </footer>
                                     </div>
                                 </div>
-                           
+
                             </div>
                             </form>
                         @endsection
 
-  
+

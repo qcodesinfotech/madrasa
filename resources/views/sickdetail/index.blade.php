@@ -15,9 +15,13 @@
 									input {
 										text-transform: capitalize;
 									}
+									tr{
+										border-collapse: collapse;
+									}
 
 									.cell{
 										text-align:center;
+										border: 1px solid gray;
 									}
 								</style>
 							</div>
@@ -47,60 +51,97 @@
                                               method="POST">
 												@csrf
 												@method('post')
-												{{-- <div class="mb-3">
+										
+
+												<div class="mb-3">
 													<label for="recipient-name" class="col-form-label">Student</label>
-                                                    <select name="" id="">
-
-                                                        <option value="">select option</option>
-                                                    </select>
-													<input type="number" name="s_id" class="form-select" id="" placeholder="student id" required>
-
-												</div> --}}
-
-                                                <div class="mb-3">
-													<label for="recipient-name" class="col-form-label">Sick Id</label>
-													<select name="sick_id" class="form-select" id="" required>
-														<option value="">Select</option>
-														@foreach ($sick as $data)
-														<option value="{{$data->id}}">{{$data->reason}}</option>
+													<select name="student_id" class="form-select" id="" >
+														<option value="">Select Student</option>
+														@foreach ($students as $data)
+														<option value="{{$data->id}}">{{$data->name}}</option>
 														@endforeach
 													</select>
 												</div>
 
-												{{-- <div class="mb-3">
-													<label for="recipient-name" class="col-form-label">Admission Number</label>
-													<select name="admission_no" class="form-select"  required>
-														 --}}
-
-
-
-
-
+										
                                                 <div class="mb-3">
-													<label for="recipient-name" class="col-form-label">Medicine</label>
-													<input type="text" name="medicine" class="form-select" id=""placeholder="" required>
+													<label for="recipient-name" class="col-form-label">Date</label>
+													<input type="date" name="date" class="form-select" id=""placeholder="" >
+
+												</div>
+												
+										
+                                                <div class="mb-3">
+													<label for="recipient-name" class="col-form-label">Food 1</label>
+													<input type="text" name="food_1" class="form-select" id=""placeholder=" " >
+
+												</div>
+                                                <div class="mb-3">
+													<label for="recipient-name" class="col-form-label"> Medicine 1</label>
+													<input type="text" name="medicine_1" class="form-select" id=""placeholder="" >
 
 												</div>
 												<div class="mb-3">
-													<label for="recipient-name" class="col-form-label">Hospital</label>
-													<input type="text" name="hospital" class="form-select" id=""placeholder=" " required>
+													<label for="recipient-name" class="col-form-label"> Description 1</label>
+													<textarea type="text" name="description_1" class="form-select" id=""placeholder="" ></textarea>
+
+												</div>
+												<div class="mb-3">
+													<label for="recipient-name" class="col-form-label">Food 2</label>
+													<input type="text" name="food_2" class="form-select" id=""placeholder=" " >
 
 												</div>
                                                 <div class="mb-3">
-													<label for="recipient-name" class="col-form-label">Doctor</label>
-													<input type="text" name="doctor" class="form-select" id=""placeholder=" " required>
+													<label for="recipient-name" class="col-form-label"> Medicine 2</label>
+													<input type="text" name="medicine_2" class="form-select" id=""placeholder="" >
+
+												</div>
+												<div class="mb-3">
+													<label for="recipient-name" class="col-form-label"> Description 2</label>
+													<textarea type="text" name="description_2" class="form-select" id=""placeholder="" ></textarea>
+
+												</div>
+												<div class="mb-3">
+													<label for="recipient-name" class="col-form-label">Food 3</label>
+													<input type="text" name="food_3" class="form-select" id=""placeholder=" " >
 
 												</div>
                                                 <div class="mb-3">
-													<label for="recipient-name" class="col-form-label"> Date & Time</label>
-													<input type="datetime-local" name="date_time" class="form-select" id=""placeholder="" required>
+													<label for="recipient-name" class="col-form-label"> Medicine 3</label>
+													<input type="text" name="medicine_3" class="form-select" id=""placeholder="" >
+
+												</div>
+												<div class="mb-3">
+													<label for="recipient-name" class="col-form-label"> Description 3</label>
+													<textarea type="text" name="description_3" class="form-select" id=""placeholder="" ></textarea>
+
+												</div>
+												<div class="mb-3">
+													<label for="recipient-name" class="col-form-label">Food 4</label>
+													<input type="text" name="food_4" class="form-select" id=""placeholder=" " >
+
+												</div>
+                                                <div class="mb-3">
+													<label for="recipient-name" class="col-form-label"> Medicine 4</label>
+													<input type="text" name="medicine_4" class="form-select" id=""placeholder="" >
+
+												</div>
+												<div class="mb-3">
+													<label for="recipient-name" class="col-form-label"> Description 4</label>
+													<textarea type="text" name="description_4" class="form-select" id=""placeholder="" ></textarea>
+
+												</div>
+												<div class="mb-3">
+													<label for="recipient-name" class="col-form-label"> Leave</label>
+													<input type="text" name="leave" class="form-select" id=""placeholder="" >
 
 												</div>
                                               
 
 												
-										<div class="modal-footer">
-											<a href="sickdetail" class="btn btn-secondary">Close</a>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-bs-dismiss="modal">Close</button>
 											<button type="submit" name="submit" class="btn btn-primary">Save</button>
 											</form>
 
@@ -129,42 +170,44 @@
 								@endif
 								<table class="table app-table-hover mb-0 text-left">
 									<thead>
-										<tr>
-										
-                                            <th class="cell">Id</th>
-                                            <th class="cell">Sick</th>
-                                            <th class="cell">Medicine</th>
-                                            <th class="cell">Doctor</th>
-                                            <th class="cell">Hospital</th>
-                                            <th class="cell">Date&Time</th>
-                                
-                                
-                                            <th class="cell" width="280px">Action</th>
-										</tr>
+										<th class="cell">Id</th>
+                                            <th class="cell">Student Name</th>
+											<th class="cell">Show</th>
+
+
+
+
+
+
+
+
+			
 									</thead>
+									
 									<tbody>
 										<?php $i=1; ?>
-										@foreach ($sick_leave as $data)
+										@foreach ($sick_leave as $data => $value)
 										<tr>
 											<td class="cell">{{ $i++ }}</td>
-											<td class="cell"><span class="truncate">{{ $data->reason }}</span></td>
-											<td class="cell"><span class="truncate">{{ $data->medicine}}</span></td>
-                                            <td class="cell"><span class="truncate">{{ $data->doctor}}</span></td>
-											<td class="cell"><span class="truncate">{{ $data->hospital}}</span></td>
-											<td class="cell"><span class="truncate">{{ $data->date_time}}</span></td>
+											<td class="cell"><span class="truncate">{{ $data }}</span></td>
+										
 
+										
 											<td class="cell">
-												 <a href="{{ route('editsickleave',$data->id)  }}" class="btn btn-primary"><i class="fas fa-edit fa-1x"></i></a>
-                                                    <form action="{{ route('destroysickleave',$data->id)}}" method="POST" >
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    <button type="submit" onclick="return confirm(' you want to delete?');" class="btn btn-danger"><i class="fas fa-trash fa-1x"></i></button>
-                                                    </form>
+												<a href="{{ route('detailsview',$data)  }}" class="btn btn-seconday"><i class="fas fa-eye fa-1x"></i></a></td>
+												
 
 											</td>
 										</tr>
 										@endforeach
 									</tbody>
+
+							
+									
+																	
+							
+							
+
 								</table>
 							</div>
 							<!--//table-responsive-->

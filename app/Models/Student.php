@@ -15,6 +15,7 @@ class Student extends Model
         'admission_date',
         'previous_school',
         'course_id',
+        'arabic_date',
         'year_id',
         'blood_group' 
     ];

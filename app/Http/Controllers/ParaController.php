@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use  Illuminate\Support\Carbon;
 use Carbon\CarbonPeriod;
+use GuzzleHttp\Client;
+
 
 
 class ParaController extends Controller
@@ -41,7 +43,14 @@ class ParaController extends Controller
 
 
 
-    public function checkstudent(){
+    public function checkstudent(Request $request){
+    
+          $tec = $_GET['teacher_id'];
+$get_teacher = DB::table("users")
+->where('users.id',$tec)
+->first();  
+//  $get_teacher  = [];
+
 
         $checkid = DB::table('teachers')
         ->select('student_id')
@@ -58,10 +67,10 @@ class ParaController extends Controller
             $student = DB::table("students")
             ->whereNotIn('id',$arr)
             ->get();
-    
+           
             $teacher = DB::table("users")->get();
-
-        return view('course.checkstudent', compact('teacher','student'));
+           
+        return view('course.checkstudent', compact('teacher','student','get_teacher',));
  
     }
 
@@ -215,10 +224,11 @@ class ParaController extends Controller
     //////////////////////////////////---- Student Based Parah -----------/////////////////////////
     public function studentbase(Request $request)
     {
+
 $student = DB::table('students')
 ->where('students.id', '=', $request['student'])
 ->first();
-
+// return $student;
 $course =  DB::table('syllabus_types')
 ->where('id',$student->course_id)
 ->first();
@@ -256,9 +266,7 @@ $hello = DB::table('syllabus_adds')
             }else if(preg_match("/{$hifz}/i", $course->title)){
 
                 return redirect('hifzview');
-
             }else{
-
                 return true;
 
             }
@@ -295,9 +303,10 @@ $hello = DB::table('syllabus_adds')
                 return true;
 
             }
-
+          
+        
         }
-    
+      
     }
 
     public function nazview(Request $request){
@@ -305,10 +314,13 @@ $hello = DB::table('syllabus_adds')
         $student = DB::table('students')
         ->where('students.id', '=', session('student_id'))
         ->join('syllabus_types', 'syllabus_types.id', 'students.course_id')
-        ->select('students.name', 'students.id', 'syllabus_types.id as course_id', 'syllabus_types.title as course_title', 'students.Admission_date')
+        ->select('students.name','students.arabic_date', 'students.id', 'syllabus_types.id as course_id', 'syllabus_types.title as course_title', 'students.Admission_date')
         ->first();
 
-        $month_id = Carbon::createFromFormat('Y-m-d', $student->Admission_date)->format('m');
+
+        $month_id = Carbon::createFromFormat('d/m/Y', $student->arabic_date)->format('m');
+   
+        // $month_id = Carbon::createFromFormat('Y-m-d', $student->Admission_date)->format('m');
 
         $month = DB::table('months')
          ->whereBetween('id', array($month_id, 30))->get();
@@ -325,6 +337,9 @@ $hello = DB::table('syllabus_adds')
                     $dat[] = $month_start->month;
                     $dat[] = $month_start->id;
                         }
+
+
+
         $parah = DB::table('student_based_paras')
         ->where('student_based_paras.student_id', '=', $student->id)
         ->join('paras', 'paras.id', '=', 'student_based_paras.para_order')
@@ -332,13 +347,19 @@ $hello = DB::table('syllabus_adds')
         ->get();
 
         $dat = array_chunk($dat, 2);
-
+        $date2= [];
+        foreach ($dat as $date){
+            if ($date[1] != 9){
+                $date2[] = $date;
+                
+            }
+        }
         $count = DB::table("syllabus_adds")
         ->where('student_id', '=', $student->id)
         ->where('course_id', '=', $student->course_id)
         ->get()->all();
 
-        return view('assign.naz', compact('student', 'parah', 'dat'));
+        return view('assign.naz', compact('student', 'parah', 'date2'));
 
     }
 
@@ -346,36 +367,43 @@ $hello = DB::table('syllabus_adds')
         $student = DB::table('students')
         ->where('students.id', '=', session('student_id'))
         ->join('syllabus_types', 'syllabus_types.id', 'students.course_id')
-        ->select('students.name', 'students.id', 'syllabus_types.id as course_id', 'syllabus_types.title as course_title', 'students.Admission_date')
-        ->first();
+    ->select('students.name','students.arabic_date', 'students.id', 'syllabus_types.id as course_id', 'syllabus_types.title as course_title', 'students.Admission_date')
+    ->first();
 
-    $month_id = Carbon::createFromFormat('Y-m-d', $student->Admission_date)->format('m');
-    $month = DB::table('months')
-        ->whereBetween('id', array($month_id, 30))->get();
+
+    $month_id = Carbon::createFromFormat('d/m/Y', $student->arabic_date)->format('m');
+    
+            $month = DB::table('months')
+                ->whereBetween('id', array($month_id, 30))->get();
     $month_1 = DB::table('months')->get();
     foreach ($month as $month_start) {
         $dat[] = $month_start->month;
         $dat[] = $month_start->id;
-    }
-              foreach ($month_1 as $month_start) {
-                    $dat[] = $month_start->month;
-                    $dat[] = $month_start->id;
-                        }
 
+}
+            foreach ($month_1 as $month_start) {
+                $dat[] = $month_start->month;
+                $dat[] = $month_start->id;
+            }
         $parah = DB::table('student_based_paras')
         ->where('student_based_paras.student_id', '=', $student->id)
         ->join('paras', 'paras.id', '=', 'student_based_paras.para_order')
         ->select('para_name as para_order',"student_based_paras.id")
         ->get();
-
         $dat = array_chunk($dat, 2);
-
+$date2= [];
+        foreach ($dat as $date){
+            if ($date[1] != 9){
+                $date2[] = $date;
+                
+            }
+        }
         $count = DB::table("syllabus_adds")
         ->where('student_id', '=', $student->id)
         ->where('course_id', '=', $student->course_id)
         ->get()->all();
 
-        return view('assign.hifz', compact('student', 'parah', 'dat'));
+        return view('assign.hifz', compact('student', 'parah', 'date2'));
    
         }
 
@@ -394,11 +422,15 @@ $hello = DB::table('syllabus_adds')
         $student = DB::table('students')
        ->where('students.id', '=', session('student_id'))
         ->join('syllabus_types', 'syllabus_types.id', 'students.course_id')
-        ->select('students.name', 'students.id', 'syllabus_types.id as course_id', 'syllabus_types.title as course_title', 'students.Admission_date')
+        ->select('students.name','students.arabic_date','students.id', 'syllabus_types.id as course_id', 'syllabus_types.title as course_title', 'students.Admission_date')
         ->get();
 
-     $month_id = Carbon::createFromFormat('Y-m-d', $student[0]->Admission_date)->format('m');
+    // $month_id = Carbon::createFromFormat('Y-m-d', $student[0]->Admission_date)->format('m');
+   
 
+     
+     $month_id = Carbon::createFromFormat('d/m/Y',$student[0]->arabic_date)->format('m');
+   
 
      $month = DB::table('months')
         ->whereBetween('id', array($month_id, 30))
@@ -501,21 +533,34 @@ $hello = DB::table('syllabus_adds')
 
     public function getparalist($id)
     {
-        $daily_naz = DB::table('structures')->get();
-        $student = DB::table('students')->get();
+        $daily_naz = DB::table('structures')
+        ->where('structures.student_id', '=', $id)
+        ->get();
+        $students = DB::table('students')
+        ->join('syllabus_types','syllabus_types.id','students.course_id')
+        ->where('students.id',$id)
+        ->select('students.*','syllabus_types.title as students_course',)
+        ->first();
         $parahead = DB::table('student_based_paras')
             ->where('student_based_paras.student_id', '=', $id)
             ->join('paras', 'paras.id', '=', 'student_based_paras.para_order')
             ->select('paras.para_name','paras.id as para_id', 'student_based_paras.student_id', 'student_based_paras.para_order')
             ->orderBy('student_based_paras.id', 'DESC')
             ->get()->take(30);
-
+        $month = DB::table('months')->get();
+         $students_months= DB::table('syllabus_adds')
+         ->join('students', 'students.id', '=', 'syllabus_adds.student_id')
+         ->join('syllabus_types', 'syllabus_types.id', '=', 'syllabus_adds.course_id')
+         ->join('months', 'months.id', '=', 'syllabus_adds.month')
+         ->where('students.id', '=', $id)
+         ->select('months.month as students_months','months.id as month_id')
+         ->get();
             // عَمَّ يَتَسَاءَلُونَ
         foreach ($parahead as $data) {
             $stud = $data->student_id;
         }
         if (isset($stud)) {
-            return view('paras.structure', compact('parahead', 'daily_naz'));
+            return view('paras.structure', compact('parahead', 'daily_naz','students','month','students_months'));
         } else {
             return redirect()->route('structure')->with('success', "The student list is not Added in student based menu table ");
         }
@@ -604,13 +649,29 @@ if(isset($_GET["month_id"])){
 }
 
 
-$request->session()->put('student_id', $_GET["student_id"]);
 
+$request->session()->put('student_id', $_GET["student_id"]);
     $course = DB::table('syllabus_types')->get();
     $daily_naz = DB::table('daily_naz_updates')
     ->join('students', 'students.id', '=', 'daily_naz_updates.student_id')
-    ->select('students.name', 'daily_naz_updates.*')
+    ->select('students.name','students.address', 'daily_naz_updates.*')
     ->get()->groupBy('name');
+   
+$students = DB::table('students')
+->where('students.name',$_GET["student_id"])
+->join('daily_naz_updates','daily_naz_updates.student_id','students.id')
+// ->join('users','users.id','daily_naz_updates.teacher_id')
+->select('students.*','daily_naz_updates.teacher_id',)
+->first();
+
+// if(!empty($students)){
+//     $teacher = DB::table('users')
+//     ->where('users.id',$students->teacher_id)
+//     ->select('full_name')
+//     ->first();
+// }
+
+
         $month = DB::table('daily_naz_updates')->get()->groupBy('month');
 
         if(isset($_GET["month_id"])){
@@ -619,7 +680,7 @@ $request->session()->put('student_id', $_GET["student_id"]);
             ->join('students', 'students.id', '=', 'daily_naz_updates.student_id')  
             ->where('students.name', '=', $_GET["student_id"])
             ->where('daily_naz_updates.month', '=', $_GET["month_id"])
-            ->select('students.id as student_id','daily_naz_updates.*')
+            ->select('students.id as student_id','students.name as student_name','students.address as student_address','daily_naz_updates.*')
             ->get();
       
         }else{
@@ -628,7 +689,7 @@ $request->session()->put('student_id', $_GET["student_id"]);
             ->join('students', 'students.id', '=', 'daily_naz_updates.student_id')
             ->where('students.name', '=', $_GET["student_id"])
             ->orderBy('daily_naz_updates.id','DESC')
-            ->select('students.id as student_id','daily_naz_updates.*')
+            ->select('students.id as student_id','students.name as student_name','students.address as student_address','daily_naz_updates.*')
             ->get()->take(30); 
       
         }
@@ -646,6 +707,7 @@ $request->session()->put('student_id', $_GET["student_id"]);
         
         if($condition){
             $list['month'] = Carbon::createFromFormat('d/m/Y',  $data->arabic_date)->format('m');
+           
             $list['exam_1'] = $data->exam_1;
             $list['exam_2'] = $data->exam_2;
             $list['exam_3'] = $data->exam_3;
@@ -692,7 +754,7 @@ $request->session()->put('student_id', $_GET["student_id"]);
             }
             $period = $hel;
             
-            return view('paras.naz', compact('daily_naz', 'month', 'array', 'period', 'course'));
+            return view('paras.naz', compact('daily_naz', 'month', 'array', 'period', 'course','students',));
             
            }else{
    
@@ -701,6 +763,7 @@ $request->session()->put('student_id', $_GET["student_id"]);
         }  
     
     }
+
 
 
 
@@ -925,7 +988,7 @@ $request->session()->put('student_id', $_GET["student_id"]);
             ->join('students', 'students.id', '=', 'pre_ends.student_id')
             ->join('syllabus_types', 'syllabus_types.id', '=', 'pre_ends.course_id')
             ->where('pre_ends.status', '=', '0')
-            ->select('students.name', "syllabus_types.title as course", 'pre_ends.*')
+            ->select('students.name','students.admission_no','students.address', "syllabus_types.title as course", 'pre_ends.*')
             ->get();
 
         return view('month.endpre', compact('pre'));

@@ -50,6 +50,8 @@
                                             <tr>
                                                 <th class="cell">Id</th>
                                                 <th class="cell">Student</th>
+                                                <th class="cell">Admission No</th>
+                                                <th class="cell">Address</th>
                                                 <th class="cell">Total para</th>
                                                 <th class="cell">Detail</th>
                                             </tr>
@@ -57,11 +59,18 @@
                                         
                                         <tbody>
                                             <?php $i = 1; ?>
-                                            @foreach ($syllabi as $data => $fillter)
+                                            @foreach ($syllabi as $data => $fillter )
+                                           {{-- <?php  print_r($data);
+                                           die;
+                                           ?> --}}
                                                 <tr>
                                                     <td class="cell">{{ $i++ }}</td>
                                                     <td class="cell"><span
-                                                            class="truncate">{{ $data }}</span></td>
+                                                            class="truncate">{{ $fillter[0]->name }}</span></td>
+                                                            <td class="cell"><span
+                                                                class="truncate">{{$fillter[0]->students_admission_no }}</span></td>
+                                                                <td class="cell"><span
+                                                                    class="truncate">{{$fillter[0]->students_address }}</span></td>
                                                     <td class="cell"><span
                                                             class="truncate">{{ sizeof($fillter) }}</span></td>
                                                     <td class="cell"><span class="truncate"><a

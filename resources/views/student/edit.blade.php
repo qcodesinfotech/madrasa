@@ -42,6 +42,11 @@
 			<label for="recipient-name" class="col-form-label">AdmissionNumber</label>
 			<input type="text" value="{{ $student->admission_no}}" name="admission_no" class="form-control" id="recipient-name">
 		</div>
+		
+		<div class="mb-3">
+			<label for="recipient-name" class="col-form-label">Arabic Date</label>
+			<input type="text" value="{{ $student->arabic_date}}" name="arabic_date" class="form-control" id="recipient-name">
+		</div>
 
 		<div class="mb-3">
 			<label for="recipient-name" class="col-form-label">Father Name</label>
@@ -105,38 +110,38 @@
 		<p></p><br>
 		<input type="file" name="student_pic" value="{{ $student->student_pic}}" class="form-control" id="customFile" />
 
-		<label class="form-label" for="customFile">proof document image 1</label><br>
+		<label class="form-label" for="customFile">Student Adharcard</label><br>
            <a href="{{ URL::asset('students_photo')}}/{{ $student->proof1}}">
         <img src="{{ URL::asset('students_photo')}}/{{ $student->proof1}}" width="100px"></a>
 		<p></p><br>
 		<input type="file" name="proof1" value="{{ $student->proof1}}" class="form-control" id="customFile" />
 
-		<label class="form-label" for="customFile">proof document image 2</label><br>
+		<label class="form-label" for="customFile">Student School certificate</label><br>
 		<a href="{{ URL::asset('students_photo')}}/{{ $student->proof2}}">
         <img src="{{ URL::asset('students_photo')}}/{{ $student->proof2}}" width="100px"></a>
 
 		<p></p><br>
 		<input type="file" name="proof2" value="{{ $student->proof2}}" class="form-control" id="customFile" />
-		<label class="form-label" for="customFile">proof document image 3</label><br>
+		<label class="form-label" for="customFile">Parents Adharcard</label><br>
 		<a href="{{ URL::asset('students_photo')}}/{{ $student->proof3}}">
         <img src="{{ URL::asset('students_photo')}}/{{ $student->proof3}}" width="100px"></a>
 
 		<p></p><br>
 		<input type="file" name="proof3" value="{{ $student->proof3}}" class="form-control" id="customFile" />
 
-		<label class="form-label" for="customFile">proof document image 4</label><br>
+		<label class="form-label" for="customFile">Mohalla Jamat Letter</label><br>
 		<a href="{{ URL::asset('students_photo')}}/{{ $student->proof4}}">
         <img src="{{ URL::asset('students_photo')}}/{{ $student->proof4}}" width="100px"></a>
 		<p></p><br>
 		<input type="file" name="proof4" value="{{ $student->proof4}}" class="form-control" id="customFile" />
 	
-        <label class="form-label" for="customFile">proof document image 5</label><br>
+        <label class="form-label" for="customFile">Parents Razi Nama</label><br>
 		<a href="{{ URL::asset('students_photo')}}/{{ $student->proof5}}">
         <img src="{{ URL::asset('students_photo')}}/{{ $student->proof5}}" height="100px"></a>
 
 		<p></p><br>
 		<input type="file" name="proof5" value="{{ $student->proof5}}" class="form-control" id="customFile" />
-        <label class="form-label" for="customFile">proof document image 6</label><br>
+        <label class="form-label" for="customFile">Madarsa - Iqrarnama</label><br>
 	    	<a href="{{ URL::asset('students_photo')}}/{{ $student->proof6}}">
         <img src="{{ URL::asset('students_photo')}}/{{ $student->proof6}}" height="100px"></a>
 		<input type="file" name="proof6" value="{{ $student->proof6}}" class="form-control" id="customFile" />

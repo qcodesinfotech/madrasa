@@ -39,15 +39,17 @@
 		
 		<label class="form-label" for="customFile">Old Exam</label>
 		<input type="text" name="old_exam" value="{{ $daily_naz->old_exam}}" class="form-control" id="customFile" />
+	
+		<label class="form-label" for="customFile">Exam 3</label>
+		<input type="text" name="exam_3" value="{{ $daily_naz->exam_3}}" class="form-control" id="customFile" />
 		
-		<label class="form-label" for="customFile">Exam 1</label>
-		<input type="text" name="exam_1" value="{{ $daily_naz->exam_1}}" class="form-control" id="customFile" />
 		
 		<label class="form-label" for="customFile">Exam 2</label>
 		<input type="text" name="exam_2" value="{{ $daily_naz->exam_2}}" class="form-control" id="customFile" />
+
+		<label class="form-label" for="customFile">Exam 1</label>
+		<input type="text" name="exam_1" value="{{ $daily_naz->exam_1}}" class="form-control" id="customFile" />
 		
-		<label class="form-label" for="customFile">Exam 3</label>
-		<input type="text" name="exam_3" value="{{ $daily_naz->exam_3}}" class="form-control" id="customFile" />
 		
 		<label class="form-label" for="customFile">Total</label>
 		<input type="text" name="total" value="{{ $daily_naz->total}}" class="form-control" id="customFile" />

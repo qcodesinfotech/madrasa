@@ -12,18 +12,21 @@
             width: 70px;
             height: 39px;
         }
+
         .iput {
             border: 1px solid gray;
             border-radius: 2px;
             width: 150px;
             height: 39px;
         }
+
         .output {
             border: 1px solid gray;
             border-radius: 2px;
             height: 39px;
             width: 300px;
         }
+
         th.cell {
             text-align: center;
         }
@@ -38,7 +41,7 @@
                     <div class="col-auto">
                         <div class="page-utilities">
                             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-                                <div class="col-auto">
+                                {{-- <div class="col-auto">
                                     <form class="table-search-form row gx-1 align-items-center">
                                         <div class="col-auto">
                                             <input type="text" id="search-orders" name="searchorders"
@@ -48,12 +51,12 @@
                                             <button type="submit" class="btn app-btn-secondary">Search</button>
                                         </div>
                                     </form>
-                                </div>
+                                </div> --}}
                                 <button type="button" onMouseOver="this.style.color='#15A362'"
                                     onMouseOut="this.style.color='#676778'"
                                     style="border-radius:5px;padding:4px;background-color:white;border:1px solid #676778;;color:#676778; "
                                     class="col-auto" data-bs-toggle="modal" data-bs-target="#laravel">Add
-                                    user</button>
+                                    User</button>
                                 <div class="modal fade" id="laravel" tabindex="-1" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog">
@@ -82,7 +85,7 @@
                                                     <div class="mb-3">
                                                         <label for="recipient-name" class="col-form-label">Role</label>
                                                         <select name="role_id" class="form-select" id="">
-                                                            <option value="">select Role</option>
+                                                            <option value="">Select Role</option>
                                                             <option value="0">Teacher</option>
                                                             <option value="1">Admin</option>
                                                             <option value=" ">Super Admin</option>
@@ -184,7 +187,8 @@
                                                             class="btn btn-primary">Save</button>
                                                 </form>
                                             </div>
-                                            <div id="dumdiv" align="center" style=" font-size: 10px;color: #dadada;"> </div>
+                                            <div id="dumdiv" align="center" style=" font-size: 10px;color: #dadada;">
+                                            </div>
                                             <a id="dum"
                                                 style="padding-right:0px; text-decoration:none;color: green;text-align:center;"
                                                 href="http://www.hscripts.com"></a>
@@ -199,7 +203,8 @@
                     <!--//col-auto-->
                 </div>
                 <div class="tab-content" id="orders-table-tab-content">
-                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel"
+                        aria-labelledby="orders-all-tab">
                         <div class="app-card app-card-orders-table shadow-sm mb-5">
                             <div class="app-card-body">
                                 <div class="table-responsive">
@@ -226,6 +231,7 @@
                                             @foreach ($user as $data)
                                                 <tr>
                                                     <td class="cell">{{ $i++ }}</td>
+
                                                     <td class="cell">
                                                         <?php if ($data->role_id == 1) {
                                                             echo 'Admin';
@@ -255,19 +261,20 @@
                                                                     aria-hidden="true"></i></a>
                                                         </div>
                                                         <?php
-                                                          } 
+                                                          }
                                                           ?>
                                                     </td>
                                                     <td class="cell">
-                                                      
+
                                                         <a href="{{ route('user.edit', $data->id) }}"
                                                             class="btn btn-primary"><i class="fas fa-edit fa-1x"></i></a>
-                                              
-                                                            <?php if( session("LoggedUser") == $data->id || $data->role_id == 2 ){ ?>
-                                                   
-                
-                                                     <?php }else{ ?>
-                                                        <form action="{{ route('user.destroy', $data->id) }}" method="POST">
+
+                                                        <?php if( session("LoggedUser") == $data->id || $data->role_id == 2 ){ ?>
+
+
+                                                        <?php }else{ ?>
+                                                        <form action="{{ route('user.destroy', $data->id) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
@@ -275,17 +282,17 @@
                                                                 class="btn btn-danger">
                                                                 <i class="fas fa-trash fa-1x"></i>
                                                             </button>
-                                                           </td>
-                                                         </form>
+                                                    </td>
+                                                    </form>
 
-                                                       <?php } ?>
+                                                    <?php } ?>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                         </div>
+                        </div>
                     </div>
 
                     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
@@ -336,4 +343,5 @@
                                 document.getElementById('image').style.display = "none";
                             }
                         }
-                    @endsection
+                    </script>
+                @endsection

@@ -10,93 +10,35 @@ use Illuminate\Support\Facades\DB;
 
 class SickController extends Controller
 {
-    public function index()
-    {
-        $sick_leave = DB::table('sick_leave')
-            ->join('students', 'students.id', 'sick_leave.s_id')
-            ->join('users', 'users.id', 'sick_leave.teacher_id')
-            ->select('sick_leave.*', 'students.name as student_name', 'users.full_name as teacher_name')
-            ->get();
-        $students = DB::table('students')->get();
-        $users = DB::table('users')->get();
-        return view('Sick.index', compact('sick_leave', 'students', 'users'));
-    }
-    public function edit(Request $request)
-    {
-        $sickleave = DB::table('sick_leave')
-            ->join('students', 'students.id', 'sick_leave.s_id')
-            ->join('users', 'users.id', 'sick_leave.teacher_id')
-            ->select('sick_leave.*', 'students.name as student_name', 'users.full_name as teacher_name')
-            ->where('sick_leave.id', $request->id)
-            ->first();
-        $students = DB::table('students')
-            ->get();
-        $users = DB::table('users')
-            ->get();
-        // print_r($data);
-        return view('Sick.edit', compact('sickleave', 'students', 'users'));
-    }
-    public function update(Request $request, $id)
-    {
-        $request->validate([]);
-        // $sick_leave->update($request->all());
-        DB::table("sick_leave")
-            ->where('id', $request->id)
-            ->update(array(
-                "s_id" =>  $request["student_id"],
-                "date_time" => $request["date_time"],
-                "reason" => $request["reason"],
-                "session" => $request["session"],
-                "teacher_id" => $request["teacher_id"],
-                "description" => $request["description"],
-            ));
-        return redirect()->route('sick');
-        // return redirect()->route('groupteacher')
-    }
-    public function destroy(Request $request)
-    {
-        // $sick_leave->delete();
-        DB::table('sick_leave')
-            ->where('id', $request->id)
-            ->delete();
-        return redirect()->route('sick');
-    }
-    public function addsickleave(Request $request)
-    {
-        DB::table("sick_leave")
-            ->insert(array(
-                "s_id" =>  $request["student_id"],
-                "date_time" => $request["date_time"],
-                "reason" => $request["reason"],
-                "session" => $request["session"],
-                "teacher_id" => $request["teacher_id"],
-                "description" => $request["description"],
-            ));
-        return redirect()->route('sick');
-    }
 
-    public function listsickdetail()
+public function listsickdetail()
     {
         $sick_leave = DB::table('sick_leave_details')
-            ->join('sick_leave', 'sick_leave.id', 'sick_leave_details.sick_id')
-            ->select('sick_leave_details.*','sick_leave.reason')
-            ->get();
-        // return $sick_leave;
-        $sick = DB::table('sick_leave')->get();
-        return view('sickdetail.index', compact('sick_leave', 'sick'));
+            ->join('students', 'students.id', 'sick_leave_details.student_id')
+            ->select('sick_leave_details.*','students.name as student_name')
+           ->get()->groupBy('student_name');
+
+
+
+            //->get();
+            $students = DB::table('students')->get();
+
+            // return ($sick_leave);
+
+        return view('sickdetail.index', compact('sick_leave','students'));
     }
 
     public function editsickdetail(Request $request)
     {
         $sickleave = DB::table('sick_leave_details')
             ->where('sick_leave_details.id', $request->id)
-            ->join('sick_leave', 'sick_leave.id', 'sick_leave_details.sick_id')
-            ->select('sick_leave_details.*','sick_leave.reason')
+            ->join('students', 'students.id', 'sick_leave_details.student_id')
+            ->select('sick_leave_details.*','students.name as student_name')
             ->first();
-            $sick = DB::table('sick_leave')->get();
+            $students = DB::table('students')->get();
 
             // return $sickleave;
-        return view('sickdetail.edit', compact('sickleave', 'sick',));
+        return view('sickdetail.edit', compact('sickleave', 'students',));
     }
 
     public function updatesickdetail(Request $request, $id)
@@ -104,11 +46,21 @@ class SickController extends Controller
         DB::table("sick_leave_details")
             ->where('id', $request->id)
             ->update(array(
-                "sick_id" =>  $request["sick_id"],
-                "medicine" => $request["medicine"],
-                "doctor" => $request["doctor"],
-                "hospital" => $request["hospital"],
-                "date_time" => $request["date_time"],
+                "student_id" =>  $request["student_id"],
+                "date" => $request["date"],
+                "food_1" => $request["food_1"],
+                "medicine_1" => $request["medicine_1"],
+                "description_1" => $request["description_1"],
+                "food_2" => $request["food_2"],
+                "medicine_2" => $request["medicine_2"],
+                "description_2" => $request["description_2"],
+                "food_3" => $request["food_3"],
+                "medicine_3" => $request["medicine_3"],
+                "description_3" => $request["description_3"],
+                "food_4" => $request["food_4"],
+                "medicine_4" => $request["medicine_4"],
+                "description_4" => $request["description_4"],
+                "leave" => $request["leave"],
             ));
         return redirect()->route('sickdetail');
     }
@@ -126,12 +78,76 @@ class SickController extends Controller
     {
         DB::table("sick_leave_details")
             ->insert(array(
-                "sick_id" =>  $request["sick_id"],
-                "medicine" => $request["medicine"],
-                "doctor" => $request["doctor"],
-                "hospital" => $request["hospital"],
-                "date_time" => $request["date_time"],
+                "student_id" =>  $request["student_id"],
+                "date" => $request["date"],
+                "food_1" => $request["food_1"],
+                "medicine_1" => $request["medicine_1"],
+                "description_1" => $request["description_1"],
+                "food_2" => $request["food_2"],
+                "medicine_2" => $request["medicine_2"],
+                "description_2" => $request["description_2"],
+                "food_3" => $request["food_3"],
+                "medicine_3" => $request["medicine_3"],
+                "description_3" => $request["description_3"],
+                "food_4" => $request["food_4"],
+                "medicine_4" => $request["medicine_4"],
+                "description_4" => $request["description_4"],
+                "leave" => $request["leave"],
             ));
         return redirect()->route('sickdetail');
     }
+
+
+    public function detailsview(Request $request, $id)
+    {
+        $sick_leave = DB::table('sick_leave_details')
+            ->join('students', 'students.id', 'sick_leave_details.student_id')
+            ->select('sick_leave_details.*','students.name as student_name')
+            ->where('students.name', $request->id)
+            ->get();
+
+
+
+            //->get();
+            $students = DB::table('students')->get();
+
+            // return ($sick_leave);
+
+        return view('sickdetail.details', compact('sick_leave','students'));
+    }
+
+
+public function sick_detail(){
+     $sick = DB::table('patients_list')
+    //  ->where('patients_list.status',0)
+     ->join('students','students.id','patients_list.student_id')
+     ->join('syllabus_types', 'syllabus_types.id', 'students.course_id')
+     ->select('patients_list.*','students.name as student_name',
+     'students.admission_no as student_admission_no',
+     'students.address as student_address','students.course_id as student_course_id',
+     'syllabus_types.title as student_course')
+     ->orderBy('patients_list.id', 'desc')
+     ->get()
+     ->groupBy('student_name');
+    //  return $sick;
+     return view('sickdetail.sick_student', compact('sick'));
 }
+
+
+public function sick_detail_view(Request $request){
+    $sick_view = DB::table('sick_leave_details')
+    ->join('patients_list','patients_list.id','sick_leave_details.patient_id')
+    ->join('students','students.id','patients_list.student_id')
+    ->join('users','users.id','sick_leave_details.teacher_id')
+    ->where('students.id',$request->id)
+    ->select('sick_leave_details.*','students.name as student_name','students.admission_no as  admission_no','students.address as address','users.full_name as teacher_name')
+    ->get();
+    // ->groupBy('student_name');
+    // return $sick_view;
+    return view('sickdetail.view', compact('sick_view'));
+}
+
+
+
+}
+

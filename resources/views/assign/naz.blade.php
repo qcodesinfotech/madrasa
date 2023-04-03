@@ -66,9 +66,9 @@
                                                 <th class="cell">Total</th>
                                             </tr>
                                         </thead>
-                                        <?php foreach ($parah as $data) {
-                                            $para[] = $data->para_order;
-                                            $para0[] = $data->id;
+                                        <?php foreach ($parah as $date2a) {
+                                            $para[] = $date2a->para_order;
+                                            $para0[] = $date2a->id;
                                         }
                                         
                                         ?>
@@ -82,8 +82,8 @@
                                                 <tr>
 
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[0][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[0][0] }}</label><br></td>
+                                                            value="{{ $date2[0][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[0][0] }}</label><br></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv1(this)" id="select1">
                                                             <option value="">select category</option>
@@ -111,8 +111,8 @@
 
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[1][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[1][0] }}</label></td>
+                                                            value="{{ $date2[1][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[1][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv2(this)" id="select2">
                                                             <option value="">select category</option>
@@ -146,8 +146,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[2][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[2][0] }}</label></td>
+                                                            value="{{ $date2[2][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[2][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv3(this)" id="select1">
                                                             <option value="">select category</option>
@@ -184,8 +184,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[3][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[3][0] }}</label></td>
+                                                            value="{{ $date2[3][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[3][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv4(this)" id="select1">
                                                             <option value="">select category</option>
@@ -220,8 +220,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[4][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[4][0] }}</label></td>
+                                                            value="{{ $date2[4][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[4][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv5(this)" id="select1">
                                                             <option value="">select category</option>
@@ -259,8 +259,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[5][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[5][0] }}</label></td>
+                                                            value="{{ $date2[5][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[5][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv6(this)" id="select1">
                                                             <option value="">select category</option>
@@ -303,8 +303,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[6][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[6][0] }}</label></td>
+                                                            value="{{ $date2[6][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[6][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv7(this)" id="select1">
                                                             <option value="">select category</option>
@@ -357,8 +357,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[7][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[7][0] }}</label></td>
+                                                            value="{{ $date2[7][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[7][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv8(this)" id="select1">
                                                             <option value="">select category</option>
@@ -411,8 +411,8 @@
 
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[8][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[8][0] }}</label></td>
+                                                            value="{{ $date2[8][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[8][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv9(this)" id="select1">
                                                             <option value="">select category</option>
@@ -465,8 +465,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[9][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[9][0] }}</label></td>
+                                                            value="{{ $date2[9][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[9][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv10(this)" id="select1">
                                                             <option value="">select category</option>
@@ -517,8 +517,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[10][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[10][0] }}</label></td>
+                                                            value="{{ $date2[10][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[10][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv11(this)" id="select1">
                                                             <option value="">select category</option>
@@ -544,8 +544,8 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="cell"><input type="checkbox" id="scales"
-                                                            value="{{ $dat[11][1] }}" name="month[]"
-                                                            checked hidden><label>{{ $dat[11][0] }}</label></td>
+                                                            value="{{ $date2[11][1] }}" name="month[]"
+                                                            checked hidden><label>{{ $date2[11][0] }}</label></td>
                                                     <td>
                                                         <select name="select[]" onchange="showDiv12(this)" id="select1">
                                                             <option value="">select category</option>

@@ -55,7 +55,12 @@
 												</div>
 	   		              				</div>
 										<div class="modal-footer">
-											<a href="#}" class="btn btn-secondary">Close</a>
+											{{-- <a href="#}" class="btn btn-secondary">Close</a> --}}
+
+
+											
+											<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">Close</button>
 											<button type="submit" name="submit" class="btn btn-primary">Save</button>
 											</form>
 

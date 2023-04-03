@@ -23,14 +23,25 @@
                                             text-align: center;
 
                                         }
-
                                     </style>
                                 </div>
-                                <a href="{{ route('checkstudent') }}" onMouseOver="this.style.color='#15A362'"
-                                    onMouseOut="this.style.color='#676778'"
-                                    style="border-radius:5px;padding:4px;background-color:white;border:1px solid #676778;;color:#676778; "
-                                    class="col-auto" data-bs-whatever="@getbootstrap"><i class="fa fa-plus"
-                                        aria-hidden="true"></i> Assign Student</a>
+
+
+
+
+                                <form action="{{ route('checkstudent') }}" method="GET">
+
+                                    <input type="hidden" value="{{ $data[0]->teacher_id }}" name="teacher_id">
+
+                                    <button type="submit" onMouseOver="this.style.color='#15A362'"
+                                        onMouseOut="this.style.color='#676778'"
+                                        style="border-radius:5px;padding:4px;background-color:white;border:1px solid #676778;;color:#676778; "
+                                        class="col-auto" data-bs-whatever="@getbootstrap">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Assign Student</button>
+                                </form>
+
+
+
                             </div>
                         </div>
                     </div>
@@ -49,8 +60,9 @@
                                     <table class="table app-table-hover mb-0 text-left">
                                         <thead>
                                             <tr>
-                                                <th class="cell">Id</th>
+                                                <th class="cell">SNo</th>
                                                 <th class="cell">students</th>
+                                                <th class="cell">Admission No</th>
                                                 <th class="cell">Action</th>
 
                                             </tr>
@@ -58,10 +70,19 @@
                                         <tbody>
                                             <?php $i = 1; ?>
                                             @foreach ($data as $item)
+                                                <?php
 
+                                                $city = explode(',', $item->address)[0];
+
+                                                ?>
                                                 <tr>
                                                     <td class="cell">{{ $i++ }}</td>
-                                                    <td class="cell">{{ $item->name }}</td>
+
+                                                    <td class="cell">{{ $item->name }}-{{ $city }}</td>
+
+                                                    <td class="cell">{{ $item->admission_no }}</td>
+                                                    <input type="hidden" id="teacher_id" name="teacher_id"
+                                                        value="{{ $item->teacher_id }}">
                                                     <td class="cell">
                                                         <a href="{{ route('teachersdel', $item->id) }}"
                                                             class="btn btn-danger">

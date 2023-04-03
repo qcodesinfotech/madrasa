@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <?php
-                   
+
                     $date = date('Y-m-d');
                     ?>
                     <div style="display:flex;justify-content:space-around;margin:3px 0px;color:white; background-color:rgba(131, 182, 55, 0.767)">
@@ -73,7 +73,7 @@
                                                         <th>Subject</th>
                                                         <th>Student</th>
                                                         <th>Date</th>
-                                                        <th>id</th>
+                                                        <th>SNo</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -105,7 +105,7 @@
                                                                     $value1 = $arr[1];
 
                                                                 }
-                                                     
+
                                                                 ?>
                                                             </th>
                                                             <th>
@@ -128,7 +128,7 @@
 $value2 = explode('-', $item->exam2_time)[0];
 
 
-  
+
 if(isset($value1) && isset($value2)){
     $time1 =explode(':',$value1);
     $time2 =explode(':',$value2);
@@ -165,7 +165,7 @@ $two = (int)$time2[1]-(int)$time1[1];
                                                                 $arr2 = explode('-', $item->exam3_time);
                                                                 if (sizeof($arr1) > 2) {
                                                                     echo $arr1[2] . '<br>';
-                                                                   
+
                                                                 }
                                                                 ?>
                                                             </th>
@@ -194,7 +194,7 @@ $two = (int)$time2[1]-(int)$time1[1];
                                                         <?php
 
 $value4 = explode('-', $item->exam3_time)[0];
-  
+
 if(isset($value3) && isset($value4)){
     $time4 =explode(':',$value3);
     $time5 =explode(':',$value4);

@@ -112,9 +112,10 @@ class Assign_syllabusController extends Controller
     {
         $syllabi = DB::table('syllabus_adds')
             ->join('students', 'students.id', '=', 'syllabus_adds.student_id')
-            ->select('syllabus_adds.*', 'students.name')
+            ->select('syllabus_adds.*', 'students.name','students.admission_no as students_admission_no','students.address as students_address')
             ->get()
             ->groupBy('name');   
+            // return $syllabi;
         return view('assign.assign', compact('syllabi'));
     }
  

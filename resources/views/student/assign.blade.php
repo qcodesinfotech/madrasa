@@ -5,7 +5,7 @@
             <div class="container-xl">
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
-                       
+
                     </div>
                     <div class="col-auto">
                         <div class="page-utilities">
@@ -15,12 +15,13 @@
                                         input {
                                             text-transform: capitalize;
                                         }
+
                                         .cell {
                                             text-align: center;
                                         }
                                     </style>
                                 </div>
-                              
+
                             </div>
                         </div>
                     </div>
@@ -35,31 +36,71 @@
                                             <p>{{ $message }}</p>
                                         </div>
                                     @endif
+
+
+                                    <?php if(sizeof($syllabi)<=0){ 
+                                        
+                                    
+                                        ?>
+
+                                    <a href="{{ route('assigncourse', $student_id) }}" style="float:right"
+                                        class="btn btn-secondary">Assign </a>
+
+                                    <?php } ?>
                                     <table class="table app-table-hover mb-0 text-left">
                                         <thead>
                                             <tr>
                                                 <th class="cell">Id</th>
                                                 <th class="cell">Course</th>
+                                                <th class="cell">Admission No</th>
                                                 <th class="cell">Total para</th>
                                                 <th class="cell">Detail</th>
-                                              
+
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i = 1; ?>
+                                            <?php $i = 1;
+                                            ?>
                                             @foreach ($syllabi as $data => $fillter)
+                                                <?php $city = explode(',', $fillter[0]->address)[0]; ?>
+
                                                 <tr>
                                                     <td class="cell">{{ $i++ }}</td>
                                                     <td class="cell"><span
-                                                            class="truncate">{{ $data }}</span></td>
+                                                            class="truncate">{{ $data }}-{{ $city }}</span>
+                                                    </td>
                                                     <td class="cell"><span
-                                                            class="truncate">{{ sizeof($fillter) }}</span></td>
-                                                    <td class="cell"><span class="truncate"><a
-                                                                href="{{ route('studentgetdetail', $data) }}" data-toggle="modal"
-                                                                class="btn btn-primary"><i class="fas fa-eye fa-1x"></i></a>
+                                                            class="truncate">{{ $fillter[0]->admission_no }}</span></td>
+                                                    <td class="cell"><span class="truncate">{{ sizeof($fillter) }}</span>
+                                                    </td>
+                                                    <td class="cell"><span class="truncate">
+                                                        <a href="{{ route('studentgetdetail', $data) }}"
+                                                            data-toggle="modal" class="btn btn-primary"><i
+                                                                class="fas fa-eye fa-1x"></i></a>
+                                                    </span>
+                                                </td>
+
+
+                                                
+                                                    {{-- <?php 
+                                          if($fillter[0]->course_id == 1){?>
+
+                                                    <td class="cell"><span class="truncate">
+                                                            <a href="{{ route('studentgetdetail', $data) }}"
+                                                                data-toggle="modal" class="btn btn-primary"><i
+                                                                    class="fas fa-eye fa-1x"></i></a>
                                                         </span>
                                                     </td>
-                                                </form>
+                                                    <?php }elseif($fillter[0]->course_id == 2){
+                                          ?>
+                                                    <td class="cell"><span class="truncate">
+                                                            <a href="{{ route('studentgetdetail_hifz', $data) }}"
+                                                                data-toggle="modal" class="btn btn-primary"><i
+                                                                    class="fas fa-eye fa-1x"></i></a>
+                                                        </span>
+                                                    </td>
+                                                    <?php } ?> --}}
+                                                    </form>
                                                 </tr>
                                             @endforeach
                                         </tbody>

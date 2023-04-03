@@ -105,7 +105,7 @@
 													<label for="recipient-name" class="col-form-label"> Description</label>
 													<input type="text" name="description" class="form-select" id=""placeholder="Description " required>
                                                  </div>
-                                                                                   
+
 
 
 										</div>
@@ -121,11 +121,11 @@
 
 
 						</div>
-					
+
 					</div>
-			
+
 				</div>
-				
+
 			</div>
 			<div class="tab-content" id="orders-table-tab-content">
 				<div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
@@ -140,16 +140,16 @@
 								<table class="table app-table-hover mb-0 text-left">
 									<thead>
 										<tr>
-										
-                                            <th class="cell">Id</th>
+
+                                            <th class="cell">SNo</th>
                                             <th class="cell">Student</th>
                                             <th class="cell">Date&Time</th>
                                             <th class="cell">Reason</th>
                                             <th class="cell">Session</th>
                                             <th class="cell">Teacher</th>
                                             <th class="cell">Description</th>
-                                
-                                
+
+
                                             <th class="cell" width="280px">Action</th>
 										</tr>
 									</thead>
@@ -166,14 +166,14 @@
 											<td class="cell"><span class="truncate">{{ $data->description}}</span></td>
 
 											<td class="cell">
-                                                        <a href="{{ route('edit',$data->id)  }}" class="btn btn-primary"><i class="fas fa-edit fa-1x"></i></a>
-                                                    <form action="{{ route('destroy',$data->id)}}" method="POST" >
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    <button type="submit" onclick="return confirm(' you want to delete?');" class="btn btn-danger"><i class="fas fa-trash fa-1x"></i></button>
-                                                    </form>
-
-											</td>
+												<a href="{{ route('studentview',$data->id)  }}" class="btn btn-seconday"><i class="fas fa-eye fa-1x"></i></a></td>
+													<td class="cell" style="display:flex;">
+														<a href="{{ route('student.edit',$data->id)  }}" class="btn btn-primary"><i class="fas fa-edit fa-1x"></i></a>
+													<form action="{{ route('student.destroy',$data->id)}}" method="POST" >
+														@csrf
+														@method('DELETE')
+													<button type="submit" onclick="return confirm(' you want to delete?');" class="btn btn-danger"><i class="fas fa-trash fa-1x"></i></button></td>
+													</form>
 										</tr>
 										@endforeach
 									</tbody>
@@ -184,7 +184,7 @@
 						</div>
 						<!--//app-card-body-->
 					</div>
-				
+
 				</div>
 
 				<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
